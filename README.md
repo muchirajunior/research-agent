@@ -1,13 +1,13 @@
-# Research Agent Powered by OpenAI
+# Research Agent
 
-FAgent is a powerful research assistant designed to streamline information gathering and analysis. Built on OpenAI's advanced language models, FAgent helps researchers, developers, and professionals efficiently find, summarize, and analyze data.
+Research Agent is a Python-based tool designed to assist with information gathering, summarization, and saving research data. It leverages OpenAI's GPT models and integrates tools for web search and Wikipedia queries.
 
 ## Features
 
-- **Natural Language Querying**: Ask questions in plain language and get precise answers.
-- **Data Summarization**: Summarize large datasets or documents into concise, actionable insights.
-- **Customizable Workflows**: Tailor the agent to your specific research needs.
-- **Integration with OpenAI**: Leverages OpenAI's GPT models for advanced reasoning and language understanding.
+- **Natural Language Querying**: Ask questions and get structured responses.
+- **Web Search Integration**: Uses DuckDuckGo for retrieving web information.
+- **Wikipedia Queries**: Fetch concise summaries from Wikipedia.
+- **Data Saving**: Save research data to a markdown file with timestamps.
 
 ## Installation
 
@@ -15,7 +15,7 @@ FAgent is a powerful research assistant designed to streamline information gathe
 
     ```bash
     git clone https://github.com/muchirajunior/research-agent
-    cd fagent
+    cd research-agent
     ```
 
 2. Install dependencies:
@@ -24,36 +24,17 @@ FAgent is a powerful research assistant designed to streamline information gathe
     pip install -r requirements.txt
     ```
 
-3. Set up your OpenAI API key:
+3. Set up your OpenAI API key in .env:
 
     ```bash
-    export OPENAI_API_KEY=your_api_key_here
+    OPENAI_API_KEY=your_api_key_here
     ```
 
-## Usage
+### File Structure
+- **main.py**: Entry point for the application.
+- **tools.py**: Contains tools for web search, Wikipedia queries, and saving data.
+- **research.md**: Stores saved research data.
+- **requirements.txt**: Lists dependencies for the project.
 
-Run the agent with:
-
-```bash
-python main.py
-```
-
-## Contributing
-
-We welcome contributions to FAgent! To contribute:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Submit a pull request with a detailed description of your changes.
-
-## License
-
-FAgent is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Support
-
-If you encounter any issues or have questions, feel free to open an issue on the [GitHub repository](https://github.com/muchirajunior/research-agent/issues).
-
-## Acknowledgments
-
-FAgent is powered by OpenAI's GPT models and inspired by the need for efficient research tools. Special thanks to the open-source community for their contributions and support.
+### License
+This project is licensed under the MIT License. See the LICENSE file for details.
