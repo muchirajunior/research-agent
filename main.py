@@ -4,6 +4,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain.agents import create_tool_calling_agent, AgentExecutor
+from tools import search_tool,wiki_tool,save_data_tool
 
 load_dotenv()
 
@@ -22,7 +23,8 @@ prompt = ChatPromptTemplate.from_messages( [
             "system",
             """
             You are a research assistant that will help generate a research paper.
-            Answer the user query and use neccessary tools. 
+            Answer the user query and use neccessary tools if provided any otherwise just use search. 
+            If possible save info to file if that tool is available
             Wrap the output in this format and provide no other text\n{format_instructions}
             """,
         ),
@@ -31,18 +33,30 @@ prompt = ChatPromptTemplate.from_messages( [
         ("placeholder", "{agent_scratchpad}"),
     ]).partial(format_instructions=parser.get_format_instructions())
 
+tools = [search_tool,save_data_tool]
+
 agent = create_tool_calling_agent(
     llm=llm,
     prompt=prompt,
-    tools=[]
+    tools=tools
 )
 
 agent_executor =  AgentExecutor(
     agent=agent,
-    tools=[],
+    tools=tools,
     verbose=True
 )
 
-raw_response = agent_executor.invoke({'query':"Whats the capital city of Kenya..?"})
+query = input('What are you looking for ..? ')
 
-print(raw_response)
+while(len(query) <1):
+    query = input('What are you looking for ..? ')
+
+raw_response = agent_executor.invoke({'query':query})
+
+try:
+    structured_reponse = parser.parse(raw_response.get('output'))
+
+    print(structured_reponse)
+except Exception as e:
+    print("Error formating respose", "\nRaw response:: ", raw_response)
